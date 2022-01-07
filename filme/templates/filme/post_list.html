@@ -13,8 +13,8 @@
                 </time>
             {% endif %}
             <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title|title }}</a></h2>
-            <p>{{ post.text|linebreaksbr }}</p>
-            <p>{{ post.text2|linebreaksbr }}</p><!--aqui-->
+            <p><strong>Ano:</strong> {{ post.text|linebreaksbr }}</p>
+            <p><strong>Duração:</strong> {{ post.text2|linebreaksbr }}</p><!--aqui-->
             <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.comments.count }}</a>
         </article>
     {% endfor %}
