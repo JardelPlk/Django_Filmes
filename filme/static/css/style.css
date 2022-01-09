@@ -1,10 +1,18 @@
+.grupo{
+    background-color: limegreen;
+}
+
+.titulo{
+    background-color: lightgreen;
+}
+
 h1 a, h2 a {
     color: #C25100;
     font-family: 'Garamond';
 }
 
 .page-header {
-    background-color: green;
+    background-color: forestgreen;
     margin-top: 0;
     margin-bottom: 40px;
     padding: 20px 20px 20px 40px;
