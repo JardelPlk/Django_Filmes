@@ -3,56 +3,92 @@
 {% block content %}
     <div class="post">
 
-        <aside class="actions">
+        <hr>
 
-            <a class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
+        <div class="titulo">
+            <h1>Comentários</h1>
+        </div>
 
-            <hr>
+        <hr>
+
+        <a class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Add commentário</a>
+
+        <hr>
+
             {% for comment in post.comments.all %}
-                {% if user.is_authenticated or comment.approved_comment %}
-                <div class="comment">
-                    <div class="date">
-                        {{ comment.created_date }}
-                        {% if not comment.approved_comment %}
-                            <a class="btn btn-default" href="{% url 'comment_remove' pk=comment.pk %}">
-                                <i class="bi bi-file-x"></i>
-                            </a>
-                            <a class="btn btn-default" href="{% url 'comment_approve' pk=comment.pk %}">
-                                <i class="bi bi-bookmark-check"></i>
-                            </a>
-                        {% endif %}
-                    </div>
-                    <strong>{{ comment.author }}</strong>
-                    <p>{{ comment.text|linebreaks }}</p>
+                <div class="grupo">
+                    {% if user.is_authenticated or comment.approved_comment %}
+                        <div class="novo">
+
+                            <strong>Data do comentário: </strong> {{ comment.created_date }}
+                        </div>
+                        <div class="comment">
+
+                            {% if not comment.approved_comment %}
+                                <a class="btn btn-default" href="{% url 'comment_remove' pk=comment.pk %}">
+                                    <i class="bi bi-file-x"></i>
+                                </a>
+                                <a class="btn btn-default" href="{% url 'comment_approve' pk=comment.pk %}">
+                                    <i class="bi bi-bookmark-check"></i>
+                                </a>
+                                <br>
+                            {% endif %}
+                            <p><strong>Autor: </strong> {{ comment.author }}</p>
+                            <p><strong>Comentário: </strong>{{ comment.text|linebreaks }}</p>
+                        </div>
+                    {% endif %}
                 </div>
-                {% endif %}
+
+                <hr>
             {% empty %}
+
                 <p>No comments here yet :(</p>
+
+                <hr>
+
             {% endfor %}
 
-            {% if post.published_date %}
-                <div class="date">
-                    {{ post.published_date }}
+            <div class="titulo">
+                <h1>Publicação</h1>
+            </div>
+
+            <hr>
+
+            <div class="grupo">
+                <div class="comment">
+                    {% if post.published_date %}
+                        <div class="novo">
+                            <strong>Data da publicação: </strong>{{ post.published_date }}
+                        </div>
+                    {% else %}
+                        <a class="btn btn-default" href="{% url 'post_publish' pk=post.pk %}">
+                            <i class="bi bi-box-arrow-in-right"></i>
+                        </a>
+                    {% endif %}
+
+                    {% if user.is_authenticated %}
+                        <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                    {% endif %}
+
+                    <a class="btn btn-default" href="{% url 'post_remove' pk=post.pk %}">
+                        <i class="bi bi-file-earmark-x"></i>
+                    </a>
+
+                    <h2>Nome: {{ post.titulo|title }}</h2>
+                    <p><strong>Ano:</strong> {{ post.ano|linebreaksbr }}</p>
+                    <p><strong>Duração:</strong> {{ post.duracao|linebreaksbr }}</p>
+                    <p><strong>Gênero:</strong> {{ post.genero|linebreaksbr }}</p>
+                    <p><strong>Descrição:</strong> {{ post.descricao|linebreaksbr }}</p>
+
                 </div>
-            {% else %}
-                <a class="btn btn-default" href="{% url 'post_publish' pk=post.pk %}">
-                    <i class="bi bi-box-arrow-in-right"></i>
-                </a>
-            {% endif %}
+            </div>
 
-            {% if user.is_authenticated %}
-                <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}">
-                    <i class="bi bi-pencil"></i>
-                </a>
-            {% endif %}
 
-            <a class="btn btn-default" href="{% url 'post_remove' pk=post.pk %}">
-                <i class="bi bi-file-earmark-x"></i>
-            </a>
 
-        </aside>
+        <!--</aside>-->
 
-        <h2>{{ post.title }}</h2>
-        <p>{{ post.text|linebreaksbr }}</p>
+
     </div>
 {% endblock %}

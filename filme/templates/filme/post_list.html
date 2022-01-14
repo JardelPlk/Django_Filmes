@@ -18,9 +18,12 @@
                         No date
                     </time>
                 {% endif %}
-                <h2>Nome: <a href="{% url 'post_detail' pk=post.pk %}">{{ post.title|title }}</a></h2>
-                <p><strong>Ano:</strong> {{ post.text|linebreaksbr }}</p>
-                <p><strong>Duração:</strong> {{ post.text2|linebreaksbr }}</p><!--aqui-->
+                <h2>Nome: <a href="{% url 'post_detail' pk=post.pk %}">{{ post.titulo|title }}</a></h2>
+                <p><strong>Ano:</strong> {{ post.ano|linebreaksbr }}</p>
+                <p><strong>Duração:</strong> {{ post.duracao|linebreaksbr }}</p>
+                <p><strong>Gênero:</strong> {{ post.genero|linebreaksbr }}</p>
+                <p><strong>Descrição:</strong> {{ post.descricao|linebreaksbr }}</p>
+
                 <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.comments.count }}</a>
             </article>
         </div>

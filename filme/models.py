@@ -5,10 +5,14 @@ from django.utils import timezone
 #Campos e variaveis do blog
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
-    text = models.TextField()
+    #Caso alterar BD adicionar default='Some String', ex: models.CharField(max_length=200, default='Some String')
+    titulo = models.CharField(max_length=200)
+    ano = models.CharField(max_length=200)
     #aqui
-    text2 = models.TextField()
+    duracao = models.CharField(max_length=200)
+    genero = models.CharField(max_length=200)
+    descricao = models.TextField()
+
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
 
