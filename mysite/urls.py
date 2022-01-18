@@ -8,5 +8,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/login/', views.LoginView.as_view(), name='login'),
     path('accounts/logout/', views.LogoutView.as_view(next_page='/'), name='logout'),
-    path('', include('filme.urls')),#O que vem depois de blog são as urls la na pasta do blog
+    path('', include('filme.urls')),#O que vem depois de blog são as urls la na pasta do filme
+    path('blog/', include('blog.urls')),
 ]

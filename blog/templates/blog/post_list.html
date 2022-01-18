@@ -1,0 +1,29 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    {% for post in posts %}
+        <article class="post">
+            {% if post.published_date %}
+                <time class="date">
+                    {{ post.published_date }}
+                </time>
+            {% else %}
+                <time class="date">
+                    No date
+                </time>
+            {% endif %}
+            <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title|title }}</a></h2>
+            <p>{{ post.text|linebreaksbr }}</p>
+            <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.comments.count }}</a>
+        </article>
+    {% endfor %}
+
+    <h2>Usuários</h2>
+    {% for user in users %}
+        <a href="{% url 'author_perfil' username=user.username %}">
+            {{ user }}
+        </a>
+        {{ user }} <br />
+    {% endfor %}
+
+{% endblock %}
