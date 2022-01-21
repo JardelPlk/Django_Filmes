@@ -67,11 +67,26 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
+	'default': {
+    	'ENGINE': 'django.db.backends.mysql',
+    	'NAME': 'filme',
+    	'USER': 'newuser',
+    	'PASSWORD': "billie14",
+    	'HOST': 'localhost',
+    	'PORT': '',
+	}
+}
+
+
+'''
+Em sqlite:
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+'''
 
 
 # Password validation

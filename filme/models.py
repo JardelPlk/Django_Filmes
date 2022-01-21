@@ -26,8 +26,8 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey('filme.Post', on_delete=models.CASCADE, related_name='comments')
-    author = models.CharField(max_length=200)
-    text = models.TextField()
+    autor = models.CharField(max_length=200)
+    texto = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     approved_comment = models.BooleanField(default=False)
 

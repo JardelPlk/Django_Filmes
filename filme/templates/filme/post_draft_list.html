@@ -2,10 +2,15 @@
 
 {% block content %}
     {% for post in posts %}
-        <div class="post">
-            <p class="date">created: {{ post.created_date|date:'d-m-Y' }}</p>
-            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
-            <p>{{ post.text|truncatechars:200 }}</p>
+        <div class="grupo">
+            <div class="novo">
+                <p class="date">created: {{ post.created_date|date:'d-m-Y' }}</p>
+            </div>
+            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.titulo }}</a></h1>
+            <p><strong>Ano:</strong> {{ post.ano|linebreaksbr }}</p>
+            <p><strong>Duração:</strong> {{ post.duracao|linebreaksbr }}</p>
+            <p><strong>Gênero:</strong> {{ post.genero|linebreaksbr }}</p>
+            <p><strong>Descrição:</strong> {{ post.descricao }}</p>
         </div>
     {% endfor %}
 {% endblock %}
