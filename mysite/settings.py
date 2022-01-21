@@ -1,3 +1,5 @@
+from .local_settings import *
+
 LOGIN_REDIRECT_URL = '/'
 
 from pathlib import Path
@@ -9,12 +11,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-w2pdp&$9tw#hibw37q127b+&=2wpian)nlq#ti^@#(j4cogf$l'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
 
@@ -69,13 +65,14 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
 	'default': {
     	'ENGINE': 'django.db.backends.mysql',
-    	'NAME': 'filme',
-    	'USER': 'newuser',
-    	'PASSWORD': "billie14",
-    	'HOST': 'localhost',
+    	'NAME': DB_NAME,
+    	'USER': DB_USER,
+    	'PASSWORD': DB_PASSWORD,
+    	'HOST': DB_HOST,
     	'PORT': '',
 	}
 }
+
 
 
 '''
