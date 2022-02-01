@@ -1,3 +1,11 @@
+.heart{
+    font-size: 20px;
+}
+
+.liked{
+    color: red;
+}
+
 .novo{
     float:right;
 }

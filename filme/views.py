@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-from .models import Post, Comment
+from .models import Post, Comment, PostLike
 from .forms import PostForm, CommentForm
 
 #Logica - Regra de negocio
@@ -13,14 +13,20 @@ def post_list(request):
     return render(request, 'filme/post_list.html', {'posts': posts, 'users': users})
 
 def post_detail(request, pk):
-    #try:
-    #    post = Post.objects.get(pk=pk)
-    #except Post.DoesNotExist:
-    #    raise Http404('Post missing =/')
-
     post = get_object_or_404(Post, pk=pk)
+    post.views += 1
+    post.save()
 
-    return render(request, 'filme/post_detail.html', {'post': post})
+    liked = False
+    if request.user.is_authenticated:
+        likes_count = PostLike.objects.filter(post_id=pk,user=request.user).count()
+        if likes_count > 0:
+            liked = True
+
+
+    percent = post.likes_count() / post.views * 100
+
+    return render(request, 'filme/post_detail.html', {'post': post, 'liked': liked, 'percent': percent})
 
 def author_perfil(request, username):
     author = get_object_or_404(User, username=username)
@@ -104,6 +110,12 @@ def comment_remove(request, pk):
 '''def cadastrar_usuario(request):
     form = UsuarioForm()
     return render(request, "form.html", {'form':form})'''
+
+@login_required
+def post_like(request, pk):
+    post_like, created = PostLike.objects.get_or_create(post_id=pk,user=request.user)
+
+    return redirect('post_detail', pk=pk)
 
 def post_list_blog(request):
     return render(request, 'blog/post_list.html', {})

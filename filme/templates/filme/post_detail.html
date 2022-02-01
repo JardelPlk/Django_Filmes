@@ -82,6 +82,21 @@
                     <p><strong>Gênero:</strong> {{ post.genero|linebreaksbr }}</p>
                     <p><strong>Descrição:</strong> {{ post.descricao|linebreaksbr }}</p>
 
+
+
+                    <div class="heart">
+                        {{ post.views }} views &nbsp; | &nbsp;
+                        <a href="{% url 'post_like' pk=post.pk %}">
+                            {% if liked %}
+                            <i class="bi bi-suit-heart-fill liked"></i>
+                            {% else %}
+                            <i class="bi bi-suit-heart-fill"></i>
+                            {% endif %}
+                        </a>
+                        {{ post.likes_count }} &nbsp; | &nbsp;
+                        {{ percent|floatformat:2 }} %
+                    </div>
+
                 </div>
             </div>
 
