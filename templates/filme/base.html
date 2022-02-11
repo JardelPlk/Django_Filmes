@@ -24,6 +24,9 @@
                 <a href="{% url 'post_draft_list' %}" class="top-menu">
                     <i class="bi bi-pencil-square"></i>
                 </a>
+                <a href="{% url 'user_list' %}" class="top-menu">
+                    <i class="bi bi-people"></i>
+                </a>
                 <p class="top-menu">Olá, seja bem vindo {{ user.username }} <small>(<a href="{% url 'logout' %}">Sair</a>)</small></p>
             {% else %}
                 <a href="{% url 'login' %}" class="top-menu">

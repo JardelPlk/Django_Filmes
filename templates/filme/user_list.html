@@ -1,0 +1,26 @@
+{% extends 'filme/base.html' %}
+
+{% block content %}
+    <h2>Usuários</h2>
+    <br />
+    {% for user in users %}
+        <div class="post">
+            <h3>
+                {{ user.username }} ( {{ user.email }} )
+                <small style="margin-left: 15px; ">
+                    <a href="{% url 'user_edit' pk=user.pk %}">
+                        <i class="bi bi-pencil"></i>
+                    </a>
+                </small>
+                <small style="margin-left: 15px; ">
+                    <a href="{% url 'user_remove' pk=user.pk %}">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </small>
+            </h3>
+            <hr />
+        </div>
+    {% empty %}
+        <h2>Estranho, não há usuários =/</h2>
+    {% endfor %}
+{% endblock %}

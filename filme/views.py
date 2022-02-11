@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from .models import Post, Comment, PostLike
 from .forms import PostForm, CommentForm
 from django.contrib.auth import get_user_model
+from users.forms import CustomUserChangeForm
+
 User = get_user_model()
 #Logica - Regra de negocio
 def post_list(request):
@@ -121,3 +123,32 @@ def post_like(request, pk):
 
 def post_list_blog(request):
     return render(request, 'blog/post_list.html', {})
+
+@login_required
+def user_list(request):
+    UserModel = get_user_model()
+    users = UserModel.objects.all().order_by('birth_date')
+
+    return render(request, 'filme/user_list.html', {'users': users})
+
+@login_required
+def user_remove(request, pk):
+    UserModel = get_user_model()
+    user = get_object_or_404(UserModel, pk=pk)
+    user.delete()
+
+    return redirect('user_list')
+
+@login_required
+def user_edit(request, pk):
+    UserModel = get_user_model()
+    user = get_object_or_404(UserModel, pk=pk)
+    if request.method == "POST":
+        form = CustomUserChangeForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('user_list')
+    else:
+        form = CustomUserChangeForm(instance=user)
+
+    return render(request, 'filme/user_edit.html', {'form': form})

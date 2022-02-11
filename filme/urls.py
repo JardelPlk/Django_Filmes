@@ -23,5 +23,9 @@ urlpatterns = [
 
     path('', views.post_list_blog, name='post_list_blog'),
 
+    #CustomUsers
+    path('users/', views.user_list, name='user_list'),
+    path('user/<pk>/edit/', views.user_edit, name='user_edit'),
+    path('user/<pk>/remove/', views.user_remove, name='user_remove'),
 
 ]
