@@ -107,7 +107,7 @@ LANGUAGE_CODE = 'pt-BR'
 
 TIME_ZONE = 'America/Sao_Paulo'
 
-TIME_INPUT_FORMATS = '%d/%m/%Y'
+TIME_INPUT_FORMATS = ('%d/%m/%Y', )#Formato de tupla, senão o django entenderá como uma string
 
 USE_I18N = True
 
@@ -127,3 +127,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+#Enviar configurações de email
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
