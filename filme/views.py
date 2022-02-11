@@ -1,11 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
+
 from django.contrib.auth.decorators import login_required
 
 from .models import Post, Comment, PostLike
 from .forms import PostForm, CommentForm
-
+from django.contrib.auth import get_user_model
+User = get_user_model()
 #Logica - Regra de negocio
 def post_list(request):
     posts = Post.objects.all()

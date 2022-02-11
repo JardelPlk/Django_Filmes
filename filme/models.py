@@ -31,7 +31,7 @@ class Post(models.Model):
         return f'{self.titulo} ({self.autor})'
 
 class PostLike(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     post = models.ForeignKey('filme.Post', on_delete=models.CASCADE)
     created_date = models.DateTimeField(auto_now=True)
 
