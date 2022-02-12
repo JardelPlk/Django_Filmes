@@ -15,7 +15,10 @@ User = get_user_model()
 def post_list(request):
     posts = Post.objects.all()
     users = User.objects.all()
-    messages.success(request, 'Posts listados com sucesso.')
+    if len(posts) == 0:
+        messages.info(request, 'Não existe nenhum filme!')
+    else:
+        messages.success(request, 'Filmes listados com sucesso.')
     return render(request, 'filme/post_list.html', {'posts': posts, 'users': users})
 
 def post_detail(request, pk):
@@ -82,7 +85,10 @@ def post_edit(request, pk):
 @login_required
 def post_draft_list(request):
     posts = Post.objects.filter(published_date__isnull=True).order_by('created_date')
-    messages.info(request, 'Posts não publicados.')
+    if len(posts) == 0:
+        messages.info(request, 'Não existe nenhum filme.')
+    else:
+        messages.info(request, 'Filmes não publicados.')
     return render(request, 'filme/post_draft_list.html', {'posts': posts})
 
 @login_required
@@ -132,7 +138,7 @@ def post_list_blog(request):
 def user_list(request):
     UserModel = get_user_model()
     users = UserModel.objects.all().order_by('birth_date')
-
+    messages.success(request, 'Usuários listados com sucesso.')
     return render(request, 'filme/user_list.html', {'users': users})
 
 @login_required

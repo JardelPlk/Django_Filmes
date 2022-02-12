@@ -23,4 +23,12 @@
     {% empty %}
         <h2>Estranho, não há usuários =/</h2>
     {% endfor %}
+
+    {% if messages %}
+        {% for m in messages %}
+            <div class="alert alert-warning" role="alert">
+              {{ m }}
+            </div>
+        {% endfor %}
+    {% endif %}
 {% endblock %}
