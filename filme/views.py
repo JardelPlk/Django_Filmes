@@ -8,12 +8,14 @@ from .models import Post, Comment, PostLike
 from .forms import PostForm, CommentForm
 from django.contrib.auth import get_user_model
 from users.forms import CustomUserChangeForm
+from django.contrib import messages
 
 User = get_user_model()
 #Logica - Regra de negocio
 def post_list(request):
     posts = Post.objects.all()
     users = User.objects.all()
+    messages.success(request, 'Posts listados com sucesso.')
     return render(request, 'filme/post_list.html', {'posts': posts, 'users': users})
 
 def post_detail(request, pk):
@@ -26,7 +28,6 @@ def post_detail(request, pk):
         likes_count = PostLike.objects.filter(post_id=pk,user=request.user).count()
         if likes_count > 0:
             liked = True
-
 
     percent = post.likes_count() / post.views * 100
 
@@ -48,6 +49,7 @@ def post_new(request):
             post.autor = request.user
 
             post.save()
+            messages.success(request, 'Post salvo com sucesso!')
             return redirect('post_detail', pk=post.pk)
     else:
         form = PostForm()
@@ -73,6 +75,7 @@ def post_edit(request, pk):
             return redirect('post_detail', pk=post.pk)
     else:
         form = PostForm(instance=post)
+        messages.info(request, 'Post não encontrado.')
     return render(request, 'filme/post_edit.html', {'form': form})
 
 @login_required
@@ -84,6 +87,7 @@ def post_draft_list(request):
 def post_remove(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
+    messages.success(request, 'Post deletado com sucesso.')
     return redirect('post_list')
 
 def add_comment_to_post(request, pk):
@@ -110,10 +114,6 @@ def comment_remove(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     comment.delete()
     return redirect('post_detail', pk=comment.post.pk)
-
-'''def cadastrar_usuario(request):
-    form = UsuarioForm()
-    return render(request, "form.html", {'form':form})'''
 
 @login_required
 def post_like(request, pk):
