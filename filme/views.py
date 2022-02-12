@@ -59,6 +59,7 @@ def post_new(request):
 def post_publish(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.publish()
+    messages.success(request, 'Filme publicado com sucesso.')
     return redirect('post_detail', pk=pk)
 
 #Se o usuário esta logado
@@ -75,19 +76,20 @@ def post_edit(request, pk):
             return redirect('post_detail', pk=post.pk)
     else:
         form = PostForm(instance=post)
-        messages.info(request, 'Post não encontrado.')
+        #messages.info(request, 'Post não encontrado.')
     return render(request, 'filme/post_edit.html', {'form': form})
 
 @login_required
 def post_draft_list(request):
     posts = Post.objects.filter(published_date__isnull=True).order_by('created_date')
+    messages.info(request, 'Posts não publicados.')
     return render(request, 'filme/post_draft_list.html', {'posts': posts})
 
 @login_required
 def post_remove(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
-    messages.success(request, 'Post deletado com sucesso.')
+    #messages.success(request, 'Post deletado com sucesso.')
     return redirect('post_list')
 
 def add_comment_to_post(request, pk):
@@ -107,12 +109,14 @@ def add_comment_to_post(request, pk):
 def comment_approve(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     comment.approve()
+    messages.info(request, 'Comentário aprovado.')
     return redirect('post_detail', pk=comment.post.pk)
 
 @login_required
 def comment_remove(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     comment.delete()
+    messages.info(request, 'Comentário removido.')
     return redirect('post_detail', pk=comment.post.pk)
 
 @login_required
