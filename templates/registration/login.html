@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags %}
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -28,7 +29,7 @@
                     <form method="post" action="{% url 'login' %}">
                     {% csrf_token %}
 
-                    {{ form.as_p }}
+                    {{ form|crispy }}
 
                     <input type="submit" name="" value="login" />
                     </form>

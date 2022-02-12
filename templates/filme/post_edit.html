@@ -1,10 +1,8 @@
 {% extends 'filme/base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
-    <h2>New post</h2>
-    <form method="POST" class="post-form">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Salvar</button>
-    </form>
+    <h2>Novo Filme</h2>
+    {% crispy form %}
 {% endblock %}

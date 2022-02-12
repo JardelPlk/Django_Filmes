@@ -5,6 +5,10 @@ from django.contrib.auth.decorators import login_required
 
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
+from django.contrib.auth import get_user_model
+from users.forms import CustomUserChangeForm
+
+User = get_user_model()
 
 #Logica - Regra de negocio
 def post_list_blog(request):
